@@ -8,15 +8,19 @@
 
 extends Sprite
 
-var szh = Global.size_cell / 2
+var szh : Vector2 = Global.size_cell / (Global.size_cell_ration * 2)
 
 #-----------------------------------|
 # Не важно, какой у спрайта оттенок.|
 #-----------------------------------:
 var mem : Color
+var on  = false
 
 func _ready():
 	#print("szh = ", szh)
+	
+	#szh = Vector2(. \
+	
 	pass
 
 func _input(event):
@@ -31,13 +35,19 @@ func _input(event):
 		if -szh.x < pos.x && pos.x < szh.x && \
 		   -szh.y < pos.y && pos.y < szh.y :
 			
-			if get_self_modulate() == Color(1, 0, 0):
+			if on:
 				self_modulate = mem
 			else:
 				mem           = self_modulate
-				self_modulate = Global.select_LKM
-			
+				var        id = get_meta("ID")
+				self_modulate = Global.get_color_sprite\
+							 (id %  Global.color.size())
+							
+			on = false if on else true
+
 			print("Click position = ", Vector2(int(pos.x), int(pos.y)))
+			print("szh            = ", Vector2(int(szh.x), int(szh.y)))
+
 			print("ID = ", get_meta("ID"))
 
 	pass
