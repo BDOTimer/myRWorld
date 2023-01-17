@@ -1,6 +1,6 @@
  
 ____ 
-# SeaWar [Пролог]
+# SeaWar [Пролог].
 
 ![Screenshot in game 1](001 -- Table\!Doc\SW02.gif)
 
