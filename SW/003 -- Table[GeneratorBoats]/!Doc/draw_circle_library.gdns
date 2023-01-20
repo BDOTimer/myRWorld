@@ -1,0 +1,11 @@
+[gd_resource type="NativeScript" load_steps=2 format=2]
+
+[sub_resource type="GDNativeLibrary" id=1]
+
+[resource]
+resource_local_to_scene = true
+resource_name = "native"
+class_name = "native"
+library = SubResource( 1 )
+script_class_name = "abc"
+script_class_icon_path = "res://icon_proj.png"

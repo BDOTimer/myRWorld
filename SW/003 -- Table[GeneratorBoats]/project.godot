@@ -1,0 +1,110 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Camera2D",
+"class": "cameras",
+"language": "GDScript",
+"path": "res://sources/base/cameras.gd"
+}, {
+"base": "Reference",
+"class": "cfg_default",
+"language": "GDScript",
+"path": "res://sources/table/cfg_default.gd"
+}, {
+"base": "Node",
+"class": "exp_001",
+"language": "GDScript",
+"path": "res://sources/experiments/exp_001.gd"
+}, {
+"base": "Reference",
+"class": "gen_noats",
+"language": "GDScript",
+"path": "res://sources/table/gen_boats.gd"
+}, {
+"base": "CanvasLayer",
+"class": "gui",
+"language": "GDScript",
+"path": "res://sources/table/gui.gd"
+}, {
+"base": "Node",
+"class": "sounds",
+"language": "GDScript",
+"path": "res://sources/base/sounds.gd"
+}, {
+"base": "Node2D",
+"class": "table",
+"language": "GDScript",
+"path": "res://sources/table/table.gd"
+}, {
+"base": "Node2D",
+"class": "tableboats",
+"language": "GDScript",
+"path": "res://sources/table/tableboats.gd"
+} ]
+_global_script_class_icons={
+"cameras": "",
+"cfg_default": "",
+"exp_001": "",
+"gen_noats": "",
+"gui": "",
+"sounds": "",
+"table": "",
+"tableboats": ""
+}
+
+[application]
+
+config/name="Table[GeneratorBoats]"
+run/main_scene="res://root.tscn"
+config/icon="res://icon_proj.png"
+
+[autoload]
+
+Debug="*res://sources/tools/debug.gd"
+Mylib="*res://sources/base/mylib.gd"
+Main="*res://sources/main.gd"
+
+[display]
+
+window/size/width=600
+
+[input]
+
+ms_left_press={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+wheel_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+wheel_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":6,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[mono]
+
+project/assembly_name="Table[GeneratorBoats]"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_environment="res://default_env.tres"

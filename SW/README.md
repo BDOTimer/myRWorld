@@ -1,8 +1,10 @@
  
 ____ 
-# SeaWar [Пролог].
+# SeaWar [Пролог]
 
-![Screenshot in game 1](001 -- Table\!Doc\SW02.gif)
+![Screenshot in game 1](SW05.jpg)
+
+![Screenshot in game 1](SW04.gif)
 
 ____ 
 ## Общий комментарий:

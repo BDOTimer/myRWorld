@@ -1,36 +1,11 @@
 """
 #------------------------------------------------------------------------------|
-# self == "Mylib"
+# Mesh
 #------------------------------------------------------------------------------:
 """
 
 extends Node
 
-
-#-----------------|
-# Случайное число.|
-#-----------------:
-func rrandi(from, to) -> int:
-	return randi() % (to - from) + from
-
-#-----------------|
-# Где точка?.     |
-#-----------------:
-func is_point_in_rect(point : Vector2, rect : Rect2):
-	return (
-		point.x > rect.position.x               and
-		point.x < rect.position.x + rect.size.x and
-		point.y > rect.position.y               and
-		point.y < rect.position.y + rect.size.y
-	)
-	
-func is_point_in_sprite(point : Vector2, half : Vector2):
-	return (
-		-half.x < point.x && point.x < half.x &&
-		-half.y < point.y && point.y < half.y
-	)
-	
-	
 var tmpMesh  = Mesh.new()
 var vertices = PoolVector3Array()
 var UVs      = PoolVector2Array()
@@ -62,6 +37,4 @@ func _ready():
 
 	st.commit(tmpMesh)
 
-	#$MeshInstance2D.mesh = tmpMesh
-	
-	
+	$MeshInstance2D.mesh = tmpMesh

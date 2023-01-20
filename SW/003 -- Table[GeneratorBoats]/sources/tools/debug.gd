@@ -56,15 +56,13 @@ func  tests():
 	#-----|
 	# OFF |
 	#-----:
-	#return
-	
-	info_node_root()
+	return
 	
 	print("#-------------------------------------|")
 	print("# Тесты.                              |")
 	print("#-------------------------------------:")
 	test_path   ()
-	test_2DArray()
+	#test_2DArray()
 	print       ()
 	pass
 
@@ -87,32 +85,4 @@ func  test_path():
 		print("node: ",   node.name)
 		pass
 	pass
-	
 
-	
-func test_2DArray():
-	
-	var a = Vector2(3, 4)
-	
-	var matrix = []
-	matrix.resize(a.y)
-	for y in range(a.y):
-		matrix[y]= []
-		matrix[y].resize(a.x)
-		for x in range(a.x):
-			matrix[y][x]=0
-			
-	info_2DArray(matrix)
-	pass
-	
-func info_2DArray(arr2d):
-	var     s : String
-	for     y in arr2d.size():
-		for x in arr2d[y].size():
-			s += str(arr2d[y][x])
-			pass
-		s += "\n"
-		pass
-		
-	print(s)
-	pass

@@ -8,7 +8,7 @@
 
 extends Sprite
 
-var szh : Vector2 = Table.size_cell / (Table.size_cell_ration * 2)
+var szh : Vector2
 
 #-----------------------------------|
 # Не важно, какой у спрайта оттенок.|
@@ -17,6 +17,14 @@ var mem : Color
 var on  = false
 
 var test : String = "Sprite-2023"
+
+
+var Tablebase : Node
+
+func _init():
+	Tablebase = Main.get_node("Tablebase")
+	szh = Tablebase.size_cell / (Tablebase.size_cell_ration * 2)
+	pass
 
 
 func _ready():
@@ -39,11 +47,10 @@ func _input(event : InputEvent):
 			else:
 				mem           = self_modulate
 				var        id = get_meta("ID")
-				self_modulate = Table.get_color_sprite\
-							 (id %  Table.color.size())
+				self_modulate = Tablebase.get_color_sprite\
+							 (id %  Tablebase.color.size())
 				
-				get_tree().get_root().get_node(
-					"Table/sounds").Play("s02.wav")
+				Main.get_node("Tablebase/sounds").Play("s02.wav")
 				pass
 
 			on = false if on else true
