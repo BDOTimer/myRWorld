@@ -3,20 +3,37 @@
 # no global
 #------------------------------------------------------------------------------:
 """
+class_name gui extends CanvasLayer
 
 signal signal_table_new        ()
 signal signal_on_grid_cross_red()
 
-class_name gui extends CanvasLayer
-
-func _init(node : Node2D):
+func _init(parent : Node2D):
 	
 	self.name = "canvas_layer"
-	node.add_child(self)
+	parent.add_child  (self)
 	
-	add_button_generator()
-	add_button_grid     ()
+	#--------------------------|
+	# Нод gui.                 |
+	#--------------------------:
+	var  gui_node = Node2D.new()
+	gui_node.name = "gui"
+	self.add_child  (gui_node)
 	
+	add_button_generator(gui_node)
+	add_button_grid     (gui_node)
+	
+	var \
+	err    = [0,0]
+	err[0] = self.connect("signal_table_new"        , get_parent(), "table_new")
+	err[1] = self.connect("signal_on_grid_cross_red", get_parent(), "on_grid_cross_red")
+
+	if(err[0]):
+		print("ERROR: connect 0: ", err[0])
+		pass
+	if(err[1]):
+		print("ERROR: connect 1: ", err[1])
+		pass
 	pass
 
 
@@ -37,7 +54,7 @@ var cnt : int = 1
 #-----------------|
 # Button.         |
 #-----------------:
-func add_button_generator():
+func add_button_generator(parent : Node2D):
 	
 	var  b = Button.new()
 	b.text = "Generator"
@@ -48,13 +65,12 @@ func add_button_generator():
 						   SIZEWINDOW.y -     (SIZEBUTTON.y + 10)))
 	b.connect("button_down", self, "_on_button_generator")
 
-	self.add_child(b)
+	parent.add_child(b)
 	cnt += 1
 	pass
 
 
 func _on_button_generator():
-	#print("_on_button_generator() ...")
 	emit_signal("signal_table_new")
 	pass
 	
@@ -62,7 +78,7 @@ func _on_button_generator():
 #-----------------|
 # Button grid.    |
 #-----------------:
-func add_button_grid():
+func add_button_grid(parent : Node2D):
 	
 	var  b = Button.new()
 	b.text = "Grid"
@@ -74,15 +90,11 @@ func add_button_grid():
 
 	b.connect("button_down", self, "_on_grid_cross_red")
 	
-	self.add_child(b)
+	parent.add_child(b)
 	cnt += 1
 	pass
 	
 func _on_grid_cross_red():
-	#print("_on_grid_cross_red() ...")
 	emit_signal("signal_on_grid_cross_red")
 	pass
 	
-
-
-

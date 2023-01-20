@@ -29,6 +29,8 @@ func test():
 # Размер зазора. |
 #----------------:
 const SIZE_CELL  = Vector2(  20,   20)
-const SIZE_TABLE = Vector2(  15,   10)
+const SIZE_TABLE = Vector2(  25,   20)
 const SIZE_ZAZOR = Vector2( 0.1,  0.1)
+
+
 

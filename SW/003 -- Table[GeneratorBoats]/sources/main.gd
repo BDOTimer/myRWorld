@@ -28,8 +28,7 @@ func _ready():
 	# tableboats.     |
 	#-----------------:
 	if on_table:
-		objsw = preload("res://sources/table/tableboats.gd").new()
-		add_child(objsw)
+		objsw = preload("res://sources/table/tableboats.gd").new(self)
 		objsw.go()
 		pass
 	
@@ -76,6 +75,20 @@ func experiments():
 	).new()
 	
 	print()
+	pass
+	
+	
+"""
+#-----------------------------------------------|
+# _notification
+#-----------------------------------------------:
+"""
+func _notification(what):
+	if what == NOTIFICATION_PREDELETE:
+		destructor()
+	
+func destructor():
+	print("Programm FINISHED!")
 	pass
 	
 

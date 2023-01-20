@@ -3,20 +3,14 @@
 # Рисуем таблицу спрайтами.
 #------------------------------------------------------------------------------:
 """
+class_name table extends Node2D
 
 signal signal_boats_set()
 
-class_name table extends Node2D
-
-var CFG_default  = preload("res://sources/table/cfg_default.gd").new()
-
-var gui_class    = preload("res://sources/table/gui.gd")
-var gui_obj      : gui
-
-var cameras_class = load("res://sources/base/cameras.gd")
-var cameras_obj
-
-var sounds_obj
+var CFG_default = cfg_default.new()
+var gui_obj     : gui
+var cameras_obj : cameras
+var sounds_obj  : sounds
 
 """
 #-----------------------------------------------|
@@ -53,21 +47,20 @@ var root : Node
 
 func _init():
 	self.name = "Tablebase"
-	#Main.add_child(self)
+	
+	sounds_obj  = sounds .new(self)
 	pass
 
 
 func _ready():
 	print("Main.get_node(\"Tablebase\").name_class = ",\
 		   Main.get_node("Tablebase").name)
+		
+	if not table: print("table == null")
 	pass
 
 
-func myinit(parent):
-	cameras_obj = cameras_class.new(parent)
-	sounds_obj  = preload("res://sources/base/sounds.gd").new(Main)
-	pass
-
+var table : Node2D
 
 """
 #-----------------------------------------------|
@@ -76,64 +69,44 @@ func myinit(parent):
 """
 func start():
 	
-	#print("CFG_default.SIZE_CELL = ", CFG_default.SIZE_CELL) # good
-	#CFG_default.test() # good
-	
 	#--------------------------|
 	# Нод work.                |
 	#--------------------------:
 	var  work = Node2D.new()
 	work.name = "work"
 	add_child   (work)
+
+	#--------------------------|
+	# gui.                     |
+	#--------------------------:
+	gui_obj = gui.new(self)
 	
-	#--------------------------|
-	# Нод gui.                 |
-	#--------------------------:
-	var  gui = Node2D.new()
-	gui.name = "gui"
-	add_child  (gui)
+	#--------------------------------------------
 
-	#--------------------------|
-	# new.                     |<--- ?
-	#--------------------------:
-	gui_obj = gui_class.new(gui)
-	var \
-	err    = [0,0]
-	err[0] = gui_obj.connect("signal_table_new"        , self, "table_new")
-	err[1] = gui_obj.connect("signal_on_grid_cross_red", self, "on_grid_cross_red")
-
-	if(err[0]):
-		print("ERROR: connect 0", err[0])
-		pass
-	if(err[1]):
-		print("ERROR: connect 1", err[1])
-		pass
-
-	restart(    )
-	myinit (self)
-	grid_cross_red(get_node("camera_test_01"))
+	restart()
+	cameras_obj = cameras.new(self)
+	grid_cross_red(cameras_obj)
 	pass
 
 
-func _test_Get_mess(mess):
+func _test_Prn_mess(mess):
 	print(mess)
 	pass
 	
 var  mat
 func restart(cfg_rand = eRUND.DEFAULT):
 	
+	Get_rand_congig(cfg_rand)
+	
 	print("run GENERATOR")
 	print("    size_cell  = ", size_cell )
 	print("    size_table = ", size_table)
 	print()
 	
-	Get_rand_congig(cfg_rand)
-	
 	#----------------|
 	# Для SW.        |
 	#----------------:
 	mat = Mylib.create_matrix(size_table)
-	#Mylib.debug_matrix(mat)
 	
 	print("(mat   .size() = ", mat   .size())
 	print("(mat[0].size() = ", mat[0].size())
@@ -142,30 +115,29 @@ func restart(cfg_rand = eRUND.DEFAULT):
 	# Добавим нод.   |
 	# На этот нод будем вешать спрайты.
 	#----------------:
-	var  table = Node2D.new()
+	table = Node2D.new()
 	table.name = "table"
 	# root/work/table
-	get_child(0).add_child(table)
+	get_node("work").add_child(table)
 	
 	#-----------------|
 	# Размер текстуры.|<--- TODO: Можно ли узнать проще?
 	#-----------------:
 	var spr     = Sprite.new()
 	spr.texture = textureIcon
-	var sz      = spr.texture.get_size()
+	var sz_txtr = spr.texture.get_size()
 	
 	spr.free()
 	
 	#-----------------|
 	# Скейл масштаба. |
 	#-----------------:
-	size_cell_ration.x = size_cell.x / sz.x
-	size_cell_ration.y = size_cell.y / sz.y
+	size_cell_ration.x = size_cell.x / sz_txtr.x
+	size_cell_ration.y = size_cell.y / sz_txtr.y
 	
 	table_generator()
 	grid      (table)
 	
-	#Main.objsw.boats_set()
 	emit_signal("signal_boats_set")
 	pass
 
@@ -247,7 +219,7 @@ func create_sprite(v) -> Sprite:
 	spr.translate (v)
 	spr.set_script(sprite_01)
 
-	get_child(0).get_child(0).add_child(spr)
+	table.add_child(spr)
 	return spr
 
 
@@ -349,34 +321,14 @@ func table_new():
 	cameras_obj.position = Vector2(0, 0)
 	self.scale           = Vector2(1, 1)
 	
-	var node = get_child(0).get_child(0)
-	
-	print("node = ", node.name)
-	
-	#print("node.free(): ", get_child(0).get_child(0).name)
+	print("func table_new(): node = ", table.name)
 
-	remove_child(node)
+	#remove_child(table)
 	
-	#node.queue_free()
-	node.free()
+	if is_instance_valid(table):
+		table.queue_free()
 	
 	restart(eRUND.TIME)
-
-	#print("node.free(): ", get_child(0).get_child(0).name)
-	pass
-	
-
-"""
-#-----------------------------------------------|
-# _notification
-#-----------------------------------------------:
-"""
-func _notification(what):
-	if what == NOTIFICATION_PREDELETE:
-		destructor()
-	
-func destructor():
-	print("Programm FINISHED!")
 	pass
 	
 
@@ -396,15 +348,18 @@ func _process(delta):
 		delta = 1 - delta * speed
 		self.scale *= Vector2(delta, delta)
 		pass
-		
-	#-----------|
-	# TODO: ??? |
-	#-----------:
-	if Input.is_mouse_button_pressed(BUTTON_WHEEL_RIGHT):
-		self.scale *= Vector2(0.95, 0.95)
-		print("+")
+	pass
+
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if event.button_index == BUTTON_WHEEL_UP and event.pressed:
+			self.scale += Vector2(0.08, 0.08)
+			pass
+		if event.button_index == BUTTON_WHEEL_DOWN and event.pressed:
+			self.scale -= Vector2(0.08, 0.08)
+			pass
 		pass
-	
 	pass
 
 

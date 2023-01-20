@@ -8,8 +8,9 @@ class_name tableboats extends "res://sources/table/table.gd"
 
 var name_class = "tableboats"
 
-func _init():
+func _init(parent : Node):
 	name = "Tablebase"
+	parent.add_child(self)
 	pass
 	
 func go():

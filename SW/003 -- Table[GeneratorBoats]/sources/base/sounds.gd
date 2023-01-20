@@ -3,10 +3,8 @@
 # class_name sounds
 #------------------------------------------------------------------------------:
 """
-extends Node
-
-class_name sounds
-
+class_name sounds extends Node
+ 
 var snd : Array
 var m   = [PoolIntArray()]
 
@@ -20,7 +18,7 @@ const filename_snds = \
 func _init(parent : Node):
 	
 	self.name =  "sounds"
-	parent.get_node("Tablebase").add_child(self)
+	parent.add_child(self)
 	
 	var pathes = filename_snds.keys()
 

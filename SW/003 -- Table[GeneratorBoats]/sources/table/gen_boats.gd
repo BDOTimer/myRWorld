@@ -58,6 +58,9 @@ var sz  = Vector2()
 #-------------------------:
 var mat = PoolStringArray()
 
+# ...
+var self_ref =  weakref(self)
+
 
 # public:
 func generator(SZ : Vector2) -> String:
@@ -71,6 +74,8 @@ func generator(SZ : Vector2) -> String:
 	#print("...mat   .size() = ", mat   .size())
 	
 	for n in rule:
+		
+		var ready : bool = true
 
 		#------------------------------|
 		# Счётчик попыток(для защиты). |
@@ -80,10 +85,9 @@ func generator(SZ : Vector2) -> String:
 		#------------------------------|
 		# Ставим корабль.              |
 		#------------------------------:
-		var ready : bool = true
 		#do
-		#{
 		while(true):
+		#{
 			#------------------------------|
 			# На поле только такое ".z*"   |
 			# mayused должен быть пустой.  |
@@ -108,8 +112,8 @@ func generator(SZ : Vector2) -> String:
 
 				p = self.rrand(sz)
 				
-				if mat[p.y][p.x] == '.':
-					break
+				if mat[p.y][p.x] == '.': break
+				
 			#} while(mat[p.y][p.x] != '.');
 		
 			mat[p.y][p.x] = '!' #<------ тут.
@@ -154,9 +158,7 @@ func generator(SZ : Vector2) -> String:
 				mat[p.y][p.x] = '!'
 			#}
 			
-			if ready:
-				break
-			
+			if ready: break
 			pass
 		#} while(!ready)
 
@@ -197,10 +199,11 @@ func get_matrix_instance(sz : Vector2):
 	
 func debug(mat):
 	for row in mat:
-		print(row)
+		print (row)
 		pass
 	pass
-	
+
+
 #------------------------------|
 # Суть: передача по ссылке.    |
 #------------------------------:
