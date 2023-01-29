@@ -1,0 +1,142 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Camera2D",
+"class": "cameras",
+"language": "GDScript",
+"path": "res://sources/base/cameras.gd"
+}, {
+"base": "Object",
+"class": "cfg_default",
+"language": "GDScript",
+"path": "res://sources/table/cfg_default.gd"
+}, {
+"base": "Node",
+"class": "exp_001",
+"language": "GDScript",
+"path": "res://sources/experiments/exp_001.gd"
+}, {
+"base": "Reference",
+"class": "gen_noats",
+"language": "GDScript",
+"path": "res://sources/table/gen_boats.gd"
+}, {
+"base": "CanvasLayer",
+"class": "gui",
+"language": "GDScript",
+"path": "res://sources/table/gui.gd"
+}, {
+"base": "Reference",
+"class": "interface",
+"language": "GDScript",
+"path": "res://sources/tester/pat_01/interface.gd"
+}, {
+"base": "Sprite",
+"class": "mysprite",
+"language": "GDScript",
+"path": "res://sources/table/mysprite.gd"
+}, {
+"base": "Node2D",
+"class": "road",
+"language": "GDScript",
+"path": "res://sources/table/road.gd"
+}, {
+"base": "Node",
+"class": "sounds",
+"language": "GDScript",
+"path": "res://sources/base/sounds.gd"
+}, {
+"base": "Reference",
+"class": "strategy_a",
+"language": "GDScript",
+"path": "res://sources/tester/pat_01/strategy_a.gd"
+}, {
+"base": "Reference",
+"class": "strategy_b",
+"language": "GDScript",
+"path": "res://sources/tester/pat_01/strategy_b.gd"
+}, {
+"base": "Node2D",
+"class": "table",
+"language": "GDScript",
+"path": "res://sources/table/table.gd"
+}, {
+"base": "Node2D",
+"class": "tableboats",
+"language": "GDScript",
+"path": "res://sources/table/tableboats.gd"
+}, {
+"base": "Reference",
+"class": "test",
+"language": "GDScript",
+"path": "res://sources/tester/pat_01/test.gd"
+} ]
+_global_script_class_icons={
+"cameras": "",
+"cfg_default": "",
+"exp_001": "",
+"gen_noats": "",
+"gui": "",
+"interface": "",
+"mysprite": "",
+"road": "",
+"sounds": "",
+"strategy_a": "",
+"strategy_b": "",
+"table": "",
+"tableboats": "",
+"test": ""
+}
+
+[application]
+
+config/name="Table[GeneratorBoats]"
+run/main_scene="res://root.tscn"
+config/icon="res://icon_proj.png"
+
+[autoload]
+
+Debug="*res://sources/tools/debug.gd"
+Mylib="*res://sources/base/mylib.gd"
+Main="*res://sources/main.gd"
+
+[display]
+
+window/size/width=600
+
+[input]
+
+ms_left_press={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+XXX={
+"deadzone": 0.5,
+"events": [  ]
+}
+
+[mono]
+
+project/assembly_name="Table[GeneratorBoats]"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/filters/sharpen_intensity=0.292
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+quality/filters/anisotropic_filter_level=16
+environment/default_environment="res://default_env.tres"
